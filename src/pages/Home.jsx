@@ -20,9 +20,21 @@ export default function Home() {
       api.get("/hotels?featured=true"),
     ])
       .then(([toursRes, articlesRes, hotelsRes]) => {
-        console.log("Tours:", toursRes.data);
-        console.log("Articles:", articlesRes.data);
-        console.log("Hotels:", hotelsRes.data);
+        console.log(
+          "Tours loaded successfully:",
+          toursRes.data.length,
+          "items",
+        );
+        console.log(
+          "Articles loaded successfully:",
+          articlesRes.data.length,
+          "items",
+        );
+        console.log(
+          "Hotels loaded successfully:",
+          hotelsRes.data.length,
+          "items",
+        );
         setTours(toursRes.data.slice(0, 3));
         setArticles(articlesRes.data.slice(0, 3));
         setHotels(hotelsRes.data.slice(0, 3));
