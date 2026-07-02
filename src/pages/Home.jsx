@@ -13,15 +13,23 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("API Base URL:", import.meta.env.VITE_API_URL);
     Promise.all([
       api.get("/tours?featured=true"),
       api.get("/articles"),
       api.get("/hotels?featured=true"),
     ])
       .then(([toursRes, articlesRes, hotelsRes]) => {
+        console.log("Tours:", toursRes.data);
+        console.log("Articles:", articlesRes.data);
+        console.log("Hotels:", hotelsRes.data);
         setTours(toursRes.data.slice(0, 3));
         setArticles(articlesRes.data.slice(0, 3));
         setHotels(hotelsRes.data.slice(0, 3));
+      })
+      .catch((err) => {
+        console.error("Error loading data:", err);
+        alert("Error loading data: " + err.message);
       })
       .finally(() => setLoading(false));
   }, []);
