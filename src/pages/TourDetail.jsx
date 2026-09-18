@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import api from "../api/api";
 import Loading from "../components/Loading";
+import SafeImage from "../components/SafeImage";
 import StarRating from "../components/StarRating";
 import SocialShare from "../components/SocialShare";
 import { useAuth } from "../context/AuthContext";
-import { formatCurrency, formatDate, TOUR_TYPES } from "../constants";
+import { formatCurrency, formatDate, SHARED_IMAGES, TOUR_TYPES } from "../constants";
 
 const getTourTypeLabel = (type) => {
   const typeObj = TOUR_TYPES.find((t) => t.value === type);
@@ -111,27 +112,29 @@ export default function TourDetail() {
 
       <div className="mt-4 grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          {tour.images?.[0] && (
-            <div className="grid grid-cols-1 gap-4">
-              <img
-                src={tour.images[0]}
-                alt={tour.name}
-                className="aspect-video w-full rounded-xl object-cover"
-              />
-              {tour.images?.length > 1 && (
-                <div className="grid grid-cols-4 gap-4">
-                  {tour.images.slice(1, 5).map((img, idx) => (
-                    <img
-                      key={idx}
-                      src={img}
-                      alt={`${tour.name} ${idx + 2}`}
-                      className="aspect-video w-full rounded-lg object-cover"
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+          <div className="grid grid-cols-1 gap-4">
+            <SafeImage
+              src={SHARED_IMAGES.tour}
+              alt={tour.name}
+              type="tour"
+              className="aspect-video w-full rounded-xl object-cover"
+              loading="eager"
+            />
+            {tour.images?.length > 1 && (
+              <div className="grid grid-cols-4 gap-4">
+                {tour.images.slice(1, 5).map((_, idx) => (
+                  <SafeImage
+                    key={idx}
+                    src={SHARED_IMAGES.tour}
+                    alt={`${tour.name} ${idx + 2}`}
+                    type="tour"
+                    className="aspect-video w-full rounded-lg object-cover"
+                    loading="eager"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
           <h1 className="mt-6 font-heading text-3xl font-bold">{tour.name}</h1>
           <div className="mt-2 flex flex-wrap gap-2">
             {tour.isCombo && (
@@ -160,7 +163,7 @@ export default function TourDetail() {
             <SocialShare
               title={tour.name}
               description={tour.description?.slice(0, 150)}
-              image={tour.images?.[0]}
+              image={SHARED_IMAGES.tour}
             />
           </div>
           {tour.provincesVisited?.length > 1 && (

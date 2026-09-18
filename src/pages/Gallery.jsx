@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
+import SafeImage from "../components/SafeImage";
 
 const categories = [
   "Tất cả",
@@ -111,8 +112,13 @@ export default function Gallery() {
                 onClick={() => setSelected(photo)}
                 className="group cursor-pointer relative bg-white rounded-xl border overflow-hidden hover:shadow-lg transition"
               >
-                <div className="aspect-[4/3] bg-slate-200 flex items-center justify-center text-slate-400 text-sm">
-                  {photo.title}
+                <div className="aspect-[4/3] overflow-hidden bg-slate-200">
+                  <SafeImage
+                    src={photo.src}
+                    alt={photo.title}
+                    type="gallery"
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                  />
                 </div>
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition flex items-end p-4">
                   <span className="text-white font-medium opacity-0 group-hover:opacity-100 transition translate-y-2 group-hover:translate-y-0">
@@ -134,8 +140,13 @@ export default function Gallery() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative">
-              <div className="aspect-[16/10] bg-slate-200 flex items-center justify-center text-slate-400 text-lg">
-                {selected.title}
+              <div className="aspect-[16/10] overflow-hidden bg-slate-200">
+                <SafeImage
+                  src={selected.src}
+                  alt={selected.title}
+                  type="gallery"
+                  className="h-full w-full object-cover"
+                />
               </div>
               <button
                 onClick={() => setSelected(null)}

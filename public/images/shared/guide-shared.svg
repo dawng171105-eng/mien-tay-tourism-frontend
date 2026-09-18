@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Cẩm nang khám phá ẩm thực và văn hóa miền Tây">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff6df"/>
+      <stop offset="1" stop-color="#f4dcae"/>
+    </linearGradient>
+    <linearGradient id="cover" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#197c72"/>
+      <stop offset="1" stop-color="#0d5b55"/>
+    </linearGradient>
+    <linearGradient id="river" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9bd9cd"/>
+      <stop offset="1" stop-color="#268177"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#173f3a" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="800" height="600" fill="#eef7f1"/>
+  <path d="M0 0 H800 V176 C690 146 610 190 506 164 C392 136 302 174 190 148 C104 128 48 146 0 132 Z" fill="#cde9dc" opacity="0.8"/>
+  <path d="M0 474 C122 444 238 478 354 452 C480 424 604 462 800 424 L800 600 L0 600 Z" fill="url(#river)"/>
+  <path d="M0 520 C136 498 260 528 390 504 C520 480 650 514 800 484 L800 600 L0 600 Z" fill="#12665f" opacity="0.82"/>
+  <g opacity="0.28" stroke="#e4f8f1" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M82 492 C164 478 238 494 320 480"/>
+    <path d="M406 524 C492 510 568 526 654 510"/>
+    <path d="M120 554 C210 540 296 558 390 542"/>
+  </g>
+  <g transform="translate(180 102)" filter="url(#shadow)">
+    <path d="M0 42 L220 0 L440 42 L440 354 L220 396 L0 354 Z" fill="url(#cover)"/>
+    <path d="M24 52 L220 14 L416 52 L416 342 L220 380 L24 342 Z" fill="#f8efd9"/>
+    <circle cx="220" cy="168" r="76" fill="#f2b856"/>
+    <circle cx="220" cy="168" r="52" fill="#f8d98d"/>
+    <path d="M176 168 C194 142 246 142 264 168 C248 184 194 184 176 168 Z" fill="#16776d"/>
+    <path d="M220 116 L220 220 M168 168 L272 168" stroke="#16776d" stroke-width="8" stroke-linecap="round"/>
+    <path d="M112 254 C150 232 186 232 220 254 C254 232 290 232 328 254" stroke="#16776d" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M112 282 C150 260 186 260 220 282 C254 260 290 260 328 282" stroke="#f2b856" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M112 310 C150 288 186 288 220 310 C254 288 290 288 328 310" stroke="#f8d98d" stroke-width="7" stroke-linecap="round" fill="none"/>
+  </g>
+  <g transform="translate(474 224)">
+    <ellipse cx="84" cy="92" rx="92" ry="46" fill="#fff8e8"/>
+    <ellipse cx="84" cy="82" rx="76" ry="34" fill="#f4c96b"/>
+    <ellipse cx="84" cy="78" rx="60" ry="25" fill="#fff4d3"/>
+    <path d="M42 72 C58 58 78 68 92 62 C106 56 120 66 132 62" stroke="#e6a63f" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M48 88 C70 78 100 78 122 88" stroke="#d9832e" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <path d="M158 42 L174 18" stroke="#8b5a38" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="176" cy="16" r="12" fill="#f2b856"/>
+    <path d="M18 122 C34 142 134 142 150 122" stroke="#d8b36a" stroke-width="8" stroke-linecap="round" fill="none"/>
+  </g>
+  <g transform="translate(516 78)">
+    <path d="M0 58 C16 26 46 12 78 18 C72 44 54 60 26 66 Z" fill="#3f9a7b"/>
+    <path d="M78 18 C102 2 132 6 152 24 C126 38 100 38 78 18 Z" fill="#2f7d67"/>
+    <path d="M78 18 C70 44 54 60 26 66 C48 72 70 64 78 18 Z" fill="#5bb591"/>
+    <path d="M78 18 C92 42 112 52 140 52 C122 34 100 24 78 18 Z" fill="#2f7d67"/>
+    <path d="M78 18 C66 44 50 60 26 66" stroke="#1d685f" stroke-width="5" fill="none"/>
+  </g>
+  <g transform="translate(600 366)" opacity="0.92">
+    <path d="M0 66 C22 34 56 22 90 30 C84 56 62 72 34 76 Z" fill="#3f9a7b"/>
+    <path d="M90 30 C112 8 144 10 166 28 C142 44 114 46 90 30 Z" fill="#2f7d67"/>
+    <path d="M90 30 C98 54 84 68 62 76 C76 56 82 44 90 30 Z" fill="#5bb591"/>
+    <rect x="84" y="28" width="10" height="58" rx="5" fill="#7a4b2e"/>
+  </g>
+  <g transform="translate(108 392)" opacity="0.9">
+    <path d="M0 58 C20 30 50 20 80 28 C74 52 56 66 30 70 Z" fill="#3f9a7b"/>
+    <path d="M80 28 C100 10 128 12 148 28 C126 42 102 44 80 28 Z" fill="#2f7d67"/>
+    <path d="M80 28 C86 50 74 64 54 70 C68 52 74 42 80 28 Z" fill="#5bb591"/>
+    <rect x="74" y="26" width="9" height="52" rx="4" fill="#7a4b2e"/>
+  </g>
+  <g transform="translate(424 420)">
+    <path d="M0 48 C30 30 72 30 102 48 L90 70 C60 80 24 78 10 64 Z" fill="#8b5a38"/>
+    <path d="M14 46 L88 46 L80 22 L24 22 Z" fill="#f2c46f"/>
+    <rect x="38" y="20" width="7" height="28" fill="#81502f"/>
+    <rect x="67" y="20" width="7" height="28" fill="#81502f"/>
+  </g>
+  <g opacity="0.16" fill="#ffffff">
+    <ellipse cx="310" cy="478" rx="150" ry="12"/>
+    <ellipse cx="590" cy="512" rx="180" ry="14"/>
+  </g>
+  <rect width="800" height="600" fill="#ffffff" opacity="0.03"/>
+</svg>

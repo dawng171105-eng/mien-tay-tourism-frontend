@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Chưa có hình ảnh tour">
+  <rect width="800" height="600" fill="#f1f5f9"/>
+  <circle cx="636" cy="148" r="72" fill="#99f6e4" opacity="0.55"/>
+  <path d="M0 430 Q200 388 400 430 T800 430 L800 600 L0 600 Z" fill="#5eead4" opacity="0.5"/>
+  <path d="M0 494 Q200 452 400 494 T800 494 L800 600 L0 600 Z" fill="#2dd4bf" opacity="0.5"/>
+  <path d="M296 392 L504 392 L472 448 L328 448 Z" fill="#0f766e"/>
+  <rect x="386" y="286" width="28" height="106" rx="6" fill="#0f766e"/>
+  <path d="M400 288 L486 372 L400 372 Z" fill="#14b8a6"/>
+  <path d="M312 400 L360 400 L344 428 L328 428 Z" fill="#134e4a" opacity="0.55"/>
+</svg>

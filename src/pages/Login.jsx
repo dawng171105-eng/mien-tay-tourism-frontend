@@ -49,10 +49,12 @@ export default function Login() {
           Chưa có tài khoản? <Link to="/register" className="text-river-600 hover:underline">Đăng ký ngay</Link>
         </p>
 
-        <div className="mt-6 rounded-lg bg-river-50 p-3 text-xs text-slate-600">
-          <p><strong>Admin:</strong> admin@mientay.vn / admin123</p>
-          <p><strong>Khách:</strong> customer@mientay.vn / 123456</p>
-        </div>
+        {import.meta.env.DEV && (
+          <div className="mt-6 rounded-lg bg-river-50 p-3 text-xs text-slate-600">
+            <p><strong>Admin:</strong> admin@mientay.vn / admin123</p>
+            <p><strong>Khách:</strong> customer@mientay.vn / 123456</p>
+          </div>
+        )}
       </div>
     </div>
   );

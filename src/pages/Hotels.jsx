@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import api from "../api/api";
 import HotelCard from "../components/HotelCard";
 import Loading from "../components/Loading";
+import Pagination from "../components/Pagination";
 import { PROVINCES } from "../constants";
+
+const PAGE_SIZE = 9;
 
 export default function Hotels() {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({ pages: 1, total: 0 });
+  const resultsRef = useRef(null);
   const [filters, setFilters] = useState({
     province: "",
     search: "",
@@ -26,6 +32,7 @@ export default function Hotels() {
 
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
+    setPage(1);
   };
 
   const resetFilters = () => {
@@ -37,6 +44,13 @@ export default function Hotels() {
       starRating: "",
       featured: "",
     });
+    setPage(1);
+  };
+
+  const goToPage = (next) => {
+    const clamped = Math.min(Math.max(1, next), pagination.pages || 1);
+    setPage(clamped);
+    resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   useEffect(() => {
@@ -48,12 +62,21 @@ export default function Hotels() {
     if (filters.maxPrice) params.set("maxPrice", filters.maxPrice);
     if (filters.starRating) params.set("starRating", filters.starRating);
     if (filters.featured) params.set("featured", filters.featured);
+    params.set("page", String(page));
+    params.set("limit", String(PAGE_SIZE));
 
     api
       .get(`/hotels?${params}`)
-      .then((res) => setHotels(res.data))
+      .then((res) => {
+        const payload = res.data;
+        setHotels(payload.data ?? payload);
+        setPagination({
+          pages: payload.pages ?? 1,
+          total: payload.total ?? (payload.length ?? 0),
+        });
+      })
       .finally(() => setLoading(false));
-  }, [filters]);
+  }, [filters, page]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
@@ -188,7 +211,7 @@ export default function Hotels() {
             <p className="text-sm text-slate-500">
               Đang hiển thị{" "}
               <span className="font-semibold text-slate-700">
-                {hotels.length}
+                {pagination.total}
               </span>{" "}
               khách sạn phù hợp
             </p>
@@ -215,10 +238,18 @@ export default function Hotels() {
           </button>
         </div>
       ) : (
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {hotels.map((hotel) => (
-            <HotelCard key={hotel._id} hotel={hotel} />
-          ))}
+        <div ref={resultsRef} className="mt-8">
+          <div className="grid gap-6 md:grid-cols-3">
+            {hotels.map((hotel) => (
+              <HotelCard key={hotel._id} hotel={hotel} />
+            ))}
+          </div>
+          <Pagination
+            page={page}
+            pages={pagination.pages}
+            onChange={goToPage}
+            className="mt-10"
+          />
         </div>
       )}
     </div>

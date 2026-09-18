@@ -1,56 +1,64 @@
 import { useState, useEffect } from "react";
 
+const STORAGE_KEY = "cookieConsent";
+const LEGACY_KEY = "cookie-consent";
+
 export default function CookieConsent() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const consented = localStorage.getItem("cookie-consent");
-    if (!consented) setShow(true);
+    const saved =
+      localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_KEY);
+    if (!saved) setShow(true);
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem("cookie-consent", "accepted");
-    setShow(false);
-  };
-
-  const handleDecline = () => {
-    localStorage.setItem("cookie-consent", "declined");
+  const persist = (value) => {
+    localStorage.setItem(STORAGE_KEY, value);
+    localStorage.removeItem(LEGACY_KEY);
     setShow(false);
   };
 
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 animate-slide-up">
-      <div className="bg-white border-t shadow-2xl p-4 md:p-6">
-        <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div className="flex-1 text-sm text-slate-600">
-            <p>
-              🍪 Trang web này sử dụng cookie để nâng cao trải nghiệm người
-              dùng. Bằng cách tiếp tục sử dụng, bạn đồng ý với{" "}
+    <div
+      role="dialog"
+      aria-label="Thông báo cookie"
+      aria-live="polite"
+      className="fixed inset-x-0 bottom-0 z-50 p-3 sm:inset-x-auto sm:bottom-4 sm:left-4 sm:right-auto sm:p-0"
+    >
+      <div className="animate-slide-up rounded-xl border border-slate-200 bg-white p-4 shadow-xl sm:max-w-sm">
+        <div className="flex items-start gap-3">
+          <span aria-hidden="true" className="text-xl leading-none">
+            🍪
+          </span>
+          <div className="text-sm text-slate-600">
+            <p className="font-medium text-slate-700">Chúng tôi dùng cookie</p>
+            <p className="mt-1">
+              Trang web dùng cookie để nâng cao trải nghiệm. Xem{" "}
               <a
                 href="/privacy"
                 className="text-river-600 underline hover:text-river-700"
               >
                 Chính sách bảo mật
-              </a>{" "}
-              của chúng tôi.
+              </a>
+              .
             </p>
           </div>
-          <div className="flex gap-3 shrink-0">
-            <button
-              onClick={handleDecline}
-              className="px-4 py-2 text-sm border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 transition"
-            >
-              Từ chối
-            </button>
-            <button
-              onClick={handleAccept}
-              className="px-4 py-2 text-sm bg-river-600 text-white rounded-lg hover:bg-river-700 transition"
-            >
-              Đồng ý
-            </button>
-          </div>
+        </div>
+        <div className="mt-3 flex justify-end gap-2">
+          <button
+            onClick={() => persist("rejected")}
+            className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50"
+          >
+            Từ chối
+          </button>
+          <button
+            onClick={() => persist("accepted")}
+            className="rounded-lg bg-river-600 px-3 py-1.5 text-sm text-white transition hover:bg-river-700"
+          >
+            Đồng ý
+          </button>
         </div>
       </div>
     </div>

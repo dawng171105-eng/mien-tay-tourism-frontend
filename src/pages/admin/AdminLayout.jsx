@@ -5,6 +5,7 @@ const links = [
   { to: '/admin/articles', label: 'Bài viết' },
   { to: '/admin/tours', label: 'Tour' },
   { to: '/admin/bookings', label: 'Đơn đặt' },
+  { to: '/admin/revenue', label: 'Doanh thu' },
 ];
 
 export default function AdminLayout() {

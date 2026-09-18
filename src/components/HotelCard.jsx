@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
-import { formatCurrency } from '../constants';
+import { formatCurrency, SHARED_IMAGES } from '../constants';
+import SafeImage from './SafeImage';
 
 export default function HotelCard({ hotel }) {
   return (
     <Link to={`/hotels/${hotel._id}`} className="group overflow-hidden rounded-xl border bg-white shadow-sm transition hover:shadow-md">
       <div className="aspect-video overflow-hidden bg-slate-200">
-        {hotel.images?.[0] ? (
-          <img src={hotel.images[0]} alt={hotel.name} className="h-full w-full object-cover transition group-hover:scale-105" />
-        ) : (
-          <div className="flex h-full items-center justify-center text-slate-400">Không có ảnh</div>
-        )}
+        <SafeImage
+          src={SHARED_IMAGES.hotel}
+          alt={hotel.name}
+          type="hotel"
+          className="h-full w-full object-cover transition group-hover:scale-105"
+          loading="eager"
+        />
       </div>
       <div className="p-4">
         <div className="mb-2 flex items-center justify-between">

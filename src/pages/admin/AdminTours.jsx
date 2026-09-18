@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import api from '../../api/api';
 import Loading from '../../components/Loading';
+import Pagination from '../../components/Pagination';
 import { PROVINCES, formatCurrency } from '../../constants';
+
+const PAGE_SIZE = 15;
 
 const emptyForm = {
   name: '',
@@ -24,6 +27,8 @@ export default function AdminTours() {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
 
   function load() {
     setLoading(true);
@@ -34,6 +39,23 @@ export default function AdminTours() {
   }
 
   useEffect(load, []);
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return tours;
+    return tours.filter(
+      (t) =>
+        t.name?.toLowerCase().includes(q) ||
+        t.province?.toLowerCase().includes(q)
+    );
+  }, [tours, search]);
+
+  const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pages);
+  const paged = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
 
   function startEdit(tour) {
     setForm({
@@ -92,7 +114,7 @@ export default function AdminTours() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-heading text-3xl font-bold">Quản lý tour</h1>
         <button className="btn-primary" onClick={() => { resetForm(); setShowForm(true); }}>+ Thêm tour</button>
       </div>
@@ -133,7 +155,20 @@ export default function AdminTours() {
         </form>
       )}
 
-      <div className="mt-6 overflow-x-auto">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <input
+          className="input-field sm:max-w-xs"
+          placeholder="Tìm theo tên hoặc tỉnh..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(1);
+          }}
+        />
+        <p className="text-sm text-slate-500">{filtered.length} tour</p>
+      </div>
+
+      <div className="mt-4 overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="border-b text-slate-500">
@@ -145,7 +180,7 @@ export default function AdminTours() {
             </tr>
           </thead>
           <tbody>
-            {tours.map((t) => (
+            {paged.map((t) => (
               <tr key={t._id} className="border-b">
                 <td className="py-3">{t.name}</td>
                 <td className="py-3">{t.province}</td>
@@ -159,7 +194,14 @@ export default function AdminTours() {
             ))}
           </tbody>
         </table>
+        {filtered.length === 0 && (
+          <p className="py-8 text-center text-slate-500">
+            Không tìm thấy tour phù hợp
+          </p>
+        )}
       </div>
+
+      <Pagination page={currentPage} pages={pages} onChange={setPage} className="mt-6" />
     </div>
   );
 }

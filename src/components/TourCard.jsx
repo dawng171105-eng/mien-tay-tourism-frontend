@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { formatCurrency, TOUR_TYPES } from '../constants';
+import { formatCurrency, SHARED_IMAGES, TOUR_TYPES } from '../constants';
+import SafeImage from './SafeImage';
 
 const getTourTypeLabel = (type) => {
   const typeObj = TOUR_TYPES.find(t => t.value === type);
@@ -10,11 +11,13 @@ export default function TourCard({ tour }) {
   return (
     <Link to={`/tours/${tour._id}`} className="group overflow-hidden rounded-xl border bg-white shadow-sm transition hover:shadow-md">
       <div className="aspect-video overflow-hidden bg-slate-200 relative">
-        {tour.images?.[0] ? (
-          <img src={tour.images[0]} alt={tour.name} className="h-full w-full object-cover transition group-hover:scale-105" />
-        ) : (
-          <div className="flex h-full items-center justify-center text-slate-400">Không có ảnh</div>
-        )}
+        <SafeImage
+          src={SHARED_IMAGES.tour}
+          alt={tour.name}
+          type="tour"
+          className="h-full w-full object-cover transition group-hover:scale-105"
+          loading="eager"
+        />
         {tour.isCombo && (
           <div className="absolute top-2 left-2 bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold">
             Combo Liên tỉnh

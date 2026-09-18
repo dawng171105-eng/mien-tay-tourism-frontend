@@ -1,16 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../api/api";
 import TourCard from "../components/TourCard";
 import Loading from "../components/Loading";
+import Pagination from "../components/Pagination";
 import { PROVINCES, TOUR_TYPES, TOUR_DURATIONS, SORT_OPTIONS } from "../constants";
+
+const PAGE_SIZE = 12;
 
 export default function Tours() {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("all");
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({ pages: 1, total: 0 });
+  const resultsRef = useRef(null);
+  const [searchParams] = useSearchParams();
   const [filters, setFilters] = useState({
-    province: "",
-    search: "",
+    province: searchParams.get("province") || "",
+    search: searchParams.get("search") || "",
     minPrice: "",
     maxPrice: "",
     duration: "",
@@ -21,6 +29,7 @@ export default function Tours() {
 
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
+    setPage(1);
   };
 
   const resetFilters = () => {
@@ -34,6 +43,18 @@ export default function Tours() {
       type: "",
       sort: "-featured -createdAt",
     });
+    setPage(1);
+  };
+
+  const goToPage = (next) => {
+    const clamped = Math.min(Math.max(1, next), pagination.pages || 1);
+    setPage(clamped);
+    resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const changeTab = (tab) => {
+    setActiveTab(tab);
+    setPage(1);
   };
 
   useEffect(() => {
@@ -49,12 +70,21 @@ export default function Tours() {
     if (activeTab === "combo") params.set("isCombo", "true");
     if (activeTab === "single") params.set("isCombo", "false");
     if (filters.sort) params.set("sort", filters.sort);
+    params.set("page", String(page));
+    params.set("limit", String(PAGE_SIZE));
 
     api
       .get(`/tours?${params}`)
-      .then((res) => setTours(res.data))
+      .then((res) => {
+        const payload = res.data;
+        setTours(payload.data ?? payload);
+        setPagination({
+          pages: payload.pages ?? 1,
+          total: payload.total ?? (payload.length ?? 0),
+        });
+      })
       .finally(() => setLoading(false));
-  }, [filters, activeTab]);
+  }, [filters, activeTab, page]);
 
   const hasActiveFilters = 
     filters.province ||
@@ -89,7 +119,7 @@ export default function Tours() {
       {/* Tabs */}
       <div className="mt-6 flex gap-4 border-b border-slate-200">
         <button
-          onClick={() => setActiveTab("all")}
+          onClick={() => changeTab("all")}
           className={`pb-3 px-2 border-b-2 font-medium transition ${
             activeTab === "all"
               ? "border-orange-500 text-orange-600"
@@ -99,7 +129,7 @@ export default function Tours() {
           Tất cả tour
         </button>
         <button
-          onClick={() => setActiveTab("combo")}
+          onClick={() => changeTab("combo")}
           className={`pb-3 px-2 border-b-2 font-medium transition ${
             activeTab === "combo"
               ? "border-orange-500 text-orange-600"
@@ -109,7 +139,7 @@ export default function Tours() {
           Combo Liên tỉnh
         </button>
         <button
-          onClick={() => setActiveTab("single")}
+          onClick={() => changeTab("single")}
           className={`pb-3 px-2 border-b-2 font-medium transition ${
             activeTab === "single"
               ? "border-orange-500 text-orange-600"
@@ -260,7 +290,7 @@ export default function Tours() {
             <p className="text-sm text-slate-500">
               Đang hiển thị{" "}
               <span className="font-semibold text-slate-700">
-                {tours.length}
+                {pagination.total}
               </span>{" "}
               tour phù hợp
             </p>
@@ -287,10 +317,18 @@ export default function Tours() {
           </button>
         </div>
       ) : (
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {tours.map((tour) => (
-            <TourCard key={tour._id} tour={tour} />
-          ))}
+        <div ref={resultsRef} className="mt-8">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {tours.map((tour) => (
+              <TourCard key={tour._id} tour={tour} />
+            ))}
+          </div>
+          <Pagination
+            page={page}
+            pages={pagination.pages}
+            onChange={goToPage}
+            className="mt-10"
+          />
         </div>
       )}
     </div>

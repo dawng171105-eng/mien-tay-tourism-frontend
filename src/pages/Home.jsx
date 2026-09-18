@@ -3,23 +3,17 @@ import { Link } from "react-router-dom";
 import api from "../api/api";
 import ArticleCard from "../components/ArticleCard";
 import TourCard from "../components/TourCard";
-import HotelCard from "../components/HotelCard";
 import Loading from "../components/Loading";
 
 export default function Home() {
   const [tours, setTours] = useState([]);
   const [articles, setArticles] = useState([]);
-  const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("API Base URL:", import.meta.env.VITE_API_URL);
-    Promise.all([
-      api.get("/tours?featured=true"),
-      api.get("/articles"),
-      api.get("/hotels?featured=true"),
-    ])
-      .then(([toursRes, articlesRes, hotelsRes]) => {
+    Promise.all([api.get("/tours?featured=true"), api.get("/articles")])
+      .then(([toursRes, articlesRes]) => {
         console.log(
           "Tours loaded successfully:",
           toursRes.data.length,
@@ -30,14 +24,8 @@ export default function Home() {
           articlesRes.data.length,
           "items",
         );
-        console.log(
-          "Hotels loaded successfully:",
-          hotelsRes.data.length,
-          "items",
-        );
         setTours(toursRes.data.slice(0, 3));
         setArticles(articlesRes.data.slice(0, 3));
-        setHotels(hotelsRes.data.slice(0, 3));
       })
       .catch((err) => {
         console.error("Error loading data:", err);
@@ -129,9 +117,9 @@ export default function Home() {
       desc: "Lẩu mắm, hủ tiếu, bánh pía và nhiều món ngon",
     },
     {
-      icon: "🏨",
-      title: "Khách sạn chất lượng",
-      desc: "Lựa chọn khách sạn 3-5 sao tiện nghi",
+      icon: "✨",
+      title: "Trợ lý lịch trình AI",
+      desc: "Gợi ý tour theo thời tiết, sở thích và ngân sách",
     },
     {
       icon: "👨‍✈️",
@@ -245,21 +233,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Hotels */}
+      {/* AI Planner */}
       <section className="bg-river-50 py-16">
         <div className="mx-auto max-w-7xl px-4">
-          <div className="mb-8 flex items-center justify-between">
-            <h2 className="font-heading text-3xl font-bold text-slate-800">
-              Khách sạn nổi bật
-            </h2>
-            <Link to="/hotels" className="text-river-600 hover:underline">
-              Xem tất cả →
+          <div className="card flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="font-heading text-3xl font-bold text-slate-800">
+                Không biết nên đi đâu?
+              </h2>
+              <p className="mt-2 max-w-2xl text-slate-600">
+                Để AI phân tích thời tiết và gợi ý lịch trình Miền Tây phù
+                hợp cho bạn.
+              </p>
+            </div>
+            <Link
+              to="/ai-planner"
+              className="btn-primary shrink-0 text-center"
+            >
+              ✨ Lập lịch trình với AI
             </Link>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {hotels.map((hotel) => (
-              <HotelCard key={hotel._id} hotel={hotel} />
-            ))}
           </div>
         </div>
       </section>

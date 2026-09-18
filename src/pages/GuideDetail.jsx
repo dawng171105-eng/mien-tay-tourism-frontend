@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../api/api';
 import Loading from '../components/Loading';
-import { CATEGORIES, formatDate } from '../constants';
+import SafeImage from '../components/SafeImage';
+import { CATEGORIES, formatDate, SHARED_IMAGES } from '../constants';
 
 export default function GuideDetail() {
   const { id } = useParams();
@@ -25,9 +26,7 @@ export default function GuideDetail() {
     <article className="mx-auto max-w-4xl px-4 py-10">
       <Link to="/guide" className="text-sm text-river-600 hover:underline">← Quay lại cẩm nang</Link>
 
-      {article.coverImage && (
-        <img src={article.coverImage} alt={article.title} className="mt-4 aspect-video w-full rounded-xl object-cover" />
-      )}
+      <SafeImage src={SHARED_IMAGES.guide} alt={article.title} type="article" className="mt-4 aspect-video w-full rounded-xl object-cover" loading="eager" />
 
       <div className="mt-6 flex gap-2">
         <span className="rounded-full bg-river-100 px-3 py-1 text-sm text-river-700">{category?.label}</span>

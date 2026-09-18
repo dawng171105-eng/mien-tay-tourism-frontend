@@ -157,18 +157,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/hotels" className="hover:text-river-400 transition">
-                  Khách sạn
+                <Link to="/ai-planner" className="hover:text-river-400 transition">
+                  Trợ lý Du lịch AI
                 </Link>
               </li>
               <li>
                 <Link to="/guide" className="hover:text-river-400 transition">
                   Cẩm nang du lịch
-                </Link>
-              </li>
-              <li>
-                <Link to="/gallery" className="hover:text-river-400 transition">
-                  Thư viện ảnh
                 </Link>
               </li>
               <li>
@@ -195,7 +190,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  to="/destination/an-giang"
+                  to={`/tours?province=${encodeURIComponent('An Giang')}`}
                   className="hover:text-river-400 transition"
                 >
                   An Giang - Châu Đốc
@@ -203,7 +198,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/destination/ben-tre"
+                  to={`/tours?province=${encodeURIComponent('Bến Tre')}`}
                   className="hover:text-river-400 transition"
                 >
                   Bến Tre - Xứ dừa
@@ -211,7 +206,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/destination/can-tho"
+                  to={`/tours?province=${encodeURIComponent('Cần Thơ')}`}
                   className="hover:text-river-400 transition"
                 >
                   Cần Thơ - Tây Đô
@@ -219,7 +214,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/destination/ca-mau"
+                  to={`/tours?province=${encodeURIComponent('Cà Mau')}`}
                   className="hover:text-river-400 transition"
                 >
                   Cà Mau - Đất Mũi
@@ -227,7 +222,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/destination/dong-thap"
+                  to={`/tours?province=${encodeURIComponent('Đồng Tháp')}`}
                   className="hover:text-river-400 transition"
                 >
                   Đồng Tháp - Sen hồng
@@ -235,7 +230,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/destination/soc-trang"
+                  to={`/tours?province=${encodeURIComponent('Sóc Trăng')}`}
                   className="hover:text-river-400 transition"
                 >
                   Sóc Trăng - Chùa Khmer

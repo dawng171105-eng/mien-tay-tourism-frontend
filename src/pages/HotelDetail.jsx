@@ -2,8 +2,9 @@ import { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import api from '../api/api';
 import Loading from '../components/Loading';
+import SafeImage from '../components/SafeImage';
 import { useAuth } from '../context/AuthContext';
-import { formatCurrency, formatDate } from '../constants';
+import { formatCurrency, formatDate, SHARED_IMAGES } from '../constants';
 
 /* ── Mapping tiện nghi → icon ── */
 const amenityIcons = {
@@ -118,15 +119,13 @@ export default function HotelDetail() {
       <div className="mt-4 grid gap-2 grid-cols-1 lg:grid-cols-4">
         {/* Ảnh chính */}
         <div className="lg:col-span-3 relative aspect-[16/9] overflow-hidden rounded-2xl bg-slate-200 shadow-md">
-          {hotel.images?.[activeImg] ? (
-            <img
-              src={hotel.images[activeImg]}
-              alt={hotel.name}
-              className="w-full h-full object-cover transition-all duration-500"
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center text-slate-400 text-lg">Không có ảnh</div>
-          )}
+          <SafeImage
+            src={SHARED_IMAGES.hotel}
+            alt={hotel.name}
+            type="hotel"
+            className="w-full h-full object-cover transition-all duration-500"
+            loading="eager"
+          />
           {/* Arrows */}
           {hotel.images?.length > 1 && (
             <>
@@ -148,7 +147,7 @@ export default function HotelDetail() {
         {/* Thumbnails */}
         {hotel.images?.length > 1 && (
           <div className="flex lg:flex-col gap-2 overflow-auto lg:overflow-y-auto max-h-[400px]">
-            {hotel.images.map((img, i) => (
+            {hotel.images.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActiveImg(i)}
@@ -156,7 +155,7 @@ export default function HotelDetail() {
                   i === activeImg ? 'border-river-500 shadow-md scale-105' : 'border-transparent opacity-70 hover:opacity-100'
                 }`}
               >
-                <img src={img} alt={`${hotel.name} ${i + 1}`} className="w-full h-full object-cover" />
+                <SafeImage src={SHARED_IMAGES.hotel} alt={`${hotel.name} ${i + 1}`} type="hotel" className="w-full h-full object-cover" loading="eager" />
               </button>
             ))}
           </div>

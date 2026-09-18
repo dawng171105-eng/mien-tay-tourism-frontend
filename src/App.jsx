@@ -14,14 +14,12 @@ import Guide from "./pages/Guide";
 import GuideDetail from "./pages/GuideDetail";
 import Tours from "./pages/Tours";
 import TourDetail from "./pages/TourDetail";
-import Hotels from "./pages/Hotels";
-import HotelDetail from "./pages/HotelDetail";
+import AIPlanner from "./pages/AIPlanner";
 import Bookings from "./pages/Bookings";
 import Profile from "./pages/Profile";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
-import Gallery from "./pages/Gallery";
 import Policies from "./pages/Policies";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./pages/admin/AdminLayout";
@@ -29,7 +27,7 @@ import Dashboard from "./pages/admin/Dashboard";
 import AdminArticles from "./pages/admin/AdminArticles";
 import AdminTours from "./pages/admin/AdminTours";
 import AdminBookings from "./pages/admin/AdminBookings";
-import AdminHotelBookings from "./pages/admin/AdminHotelBookings";
+import Revenue from "./pages/admin/Revenue";
 
 function AppContent() {
   const { isOpen, closeSearch } = useGlobalSearch();
@@ -48,12 +46,10 @@ function AppContent() {
           <Route path="/guide/:id" element={<GuideDetail />} />
           <Route path="/tours" element={<Tours />} />
           <Route path="/tours/:id" element={<TourDetail />} />
-          <Route path="/hotels" element={<Hotels />} />
-          <Route path="/hotels/:id" element={<HotelDetail />} />
+          <Route path="/ai-planner" element={<AIPlanner />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
-          <Route path="/gallery" element={<Gallery />} />
           <Route path="/terms" element={<Policies />} />
           <Route path="/privacy" element={<Policies />} />
           <Route path="/cancellation" element={<Policies />} />
@@ -86,7 +82,7 @@ function AppContent() {
             <Route path="articles" element={<AdminArticles />} />
             <Route path="tours" element={<AdminTours />} />
             <Route path="bookings" element={<AdminBookings />} />
-            <Route path="hotel-bookings" element={<AdminHotelBookings />} />
+            <Route path="revenue" element={<Revenue />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

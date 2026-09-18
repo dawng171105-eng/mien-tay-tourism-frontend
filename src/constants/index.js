@@ -46,6 +46,12 @@ export const CATEGORIES = [
   { value: 'kinh-nghiem', label: 'Kinh nghiệm' },
 ];
 
+export const SHARED_IMAGES = {
+  tour: '/images/shared/tour-shared.svg',
+  hotel: '/images/shared/hotel-shared.svg',
+  guide: '/images/shared/guide-shared.svg',
+};
+
 export const BOOKING_STATUS = {
   pending: { label: 'Chờ duyệt', color: 'bg-yellow-100 text-yellow-800' },
   approved: { label: 'Đã duyệt', color: 'bg-green-100 text-green-800' },

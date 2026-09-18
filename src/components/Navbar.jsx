@@ -36,21 +36,18 @@ export default function Navbar() {
           <span>Du Lịch Miền Tây</span>
         </Link>
         {/* Desktop Nav */}
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           <NavLink to="/" className={linkClass} end>
             Trang chủ
           </NavLink>
           <NavLink to="/tours" className={linkClass}>
             Tour du lịch
           </NavLink>
-          <NavLink to="/hotels" className={linkClass}>
-            Khách sạn
+          <NavLink to="/ai-planner" className={linkClass}>
+            ✨ Trợ lý AI
           </NavLink>
           <NavLink to="/guide" className={linkClass}>
             Cẩm nang
-          </NavLink>
-          <NavLink to="/gallery" className={linkClass}>
-            Thư viện ảnh
           </NavLink>
           <NavLink to="/about" className={linkClass}>
             Về chúng tôi
@@ -69,7 +66,7 @@ export default function Navbar() {
             </NavLink>
           )}
         </nav>
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <div className="flex gap-2">
             <button
               onClick={() =>
@@ -180,7 +177,7 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden p-2 text-slate-600 hover:text-river-700"
+          className="lg:hidden p-2 text-slate-600 hover:text-river-700"
           aria-label="Menu"
         >
           {menuOpen ? (
@@ -217,7 +214,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden border-t bg-white shadow-lg animate-fade-in">
+        <div className="lg:hidden border-t bg-white shadow-lg animate-fade-in">
           <nav className="flex flex-col py-2">
             <NavLink
               to="/"
@@ -235,11 +232,11 @@ export default function Navbar() {
               🛶 Tour du lịch
             </NavLink>
             <NavLink
-              to="/hotels"
+              to="/ai-planner"
               className={mobileLinkClass}
               onClick={() => setMenuOpen(false)}
             >
-              🏨 Khách sạn
+              ✨ Trợ lý AI
             </NavLink>
             <NavLink
               to="/guide"
@@ -247,13 +244,6 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
             >
               📖 Cẩm nang
-            </NavLink>
-            <NavLink
-              to="/gallery"
-              className={mobileLinkClass}
-              onClick={() => setMenuOpen(false)}
-            >
-              📸 Thư viện ảnh
             </NavLink>
             <NavLink
               to="/about"

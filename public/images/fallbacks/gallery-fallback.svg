@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Chưa có hình ảnh">
+  <rect width="800" height="600" fill="#f1f5f9"/>
+  <circle cx="586" cy="176" r="66" fill="#99f6e4" opacity="0.55"/>
+  <path d="M0 430 L176 250 L318 404 L430 288 L580 448 L800 448 L800 600 L0 600 Z" fill="#5eead4" opacity="0.5"/>
+  <path d="M0 492 L150 350 L280 470 L400 372 L560 512 L800 512 L800 600 L0 600 Z" fill="#2dd4bf" opacity="0.45"/>
+  <rect x="286" y="150" width="228" height="228" rx="24" fill="#ffffff" stroke="#99f6e4" stroke-width="6" opacity="0.85"/>
+  <circle cx="400" cy="238" r="42" fill="#14b8a6"/>
+  <path d="M312 348 L372 288 L420 330 L462 286 L488 348 Z" fill="#0f766e"/>
+</svg>
